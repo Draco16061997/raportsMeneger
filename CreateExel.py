@@ -1,4 +1,3 @@
-
 import os
 import getIsDatabase
 from openpyxl.reader.excel import load_workbook
@@ -7,7 +6,7 @@ from openpyxl.workbook import Workbook
 
 
 
-path = "./" # путь сохранение отчетов
+path = "/volume2/Montage/Users/reports/" # путь сохранение отчетов
 
 def createReportIsTime(start, end):
     file_name = f"Звіт по сюжетам за период від {start} до {end}.xlsx"
@@ -34,17 +33,16 @@ def createReportIsTime(start, end):
         n = 1
         h = 20
 
-        sheet.append(("📅Дата публікації ", "🗿Тип сюжету", "🎥Назва ", "📣ЮТУБ КАНАЛ", "📝Журналіст ", "🎬Монтував", "Url"))
+        sheet.append(("Дата публікації ", "Тип сюжету", "Назва ", "ЮТУБ КАНАЛ", "Журналіст ", "Монтував", "Url"))
         sheet.row_dimensions[n].height = h
         for i in getIsDatabase.getPeriod(start, end):
             sheet.append(i)
             n += 1
             sheet.row_dimensions[n].height = h
-        sheet.append(("📊ВСЬОГО СЮЖЕТІВ", n - 1))
+        sheet.append(("ВСЬОГО СЮЖЕТІВ", n - 1))
         sheet.row_dimensions[n + 1].height = h
 
         wb.save(file_path)
-
 
 def createReportIsTimeAndName(name, start, end):
     file_name = f"Звіт від {start} до {end} {name}.xlsx"
@@ -71,13 +69,13 @@ def createReportIsTimeAndName(name, start, end):
         n = 1
         h = 20
 
-        sheet.append(("📅Дата публікації ", "🗿Тип сюжету", "🎥Назва ", "📣ЮТУБ КАНАЛ", "📝Журналіст ", "🎬Монтував", "Url"))
+        sheet.append(("Дата публікації ", "Тип сюжету", "Назва ", "ЮТУБ КАНАЛ", "Журналіст ", "Монтував", "Url"))
         sheet.row_dimensions[n].height = h
         for i in getIsDatabase.getJurnForPeriod(name, start, end):
             sheet.append(i)
             n += 1
             sheet.row_dimensions[n].height = h
-        sheet.append(("📊ВСЬОГО СЮЖЕТІВ", n - 1))
+        sheet.append(("ВСЬОГО СЮЖЕТІВ", n - 1))
         sheet.row_dimensions[n + 1].height = h
 
         wb.save(file_path)
@@ -107,13 +105,13 @@ def createReportIsChanel(name, start, end):
         n = 1
         h = 20
 
-        sheet.append(("📅Дата публікації ", "🗿Тип сюжету", "🎥Назва ", "📣ЮТУБ КАНАЛ", "📝Журналіст ", "🎬Монтував", "Url"))
+        sheet.append(("Дата публікації ", "Тип сюжету", "Назва ", "ЮТУБ КАНАЛ", "Журналіст ", "Монтував", "Url"))
         sheet.row_dimensions[n].height = h
         for i in getIsDatabase.getRecurceList(name, start, end):
             sheet.append(i)
             n += 1
             sheet.row_dimensions[n].height = h
-        sheet.append(("📊ВСЬОГО СЮЖЕТІВ", n - 1))
+        sheet.append(("ВСЬОГО СЮЖЕТІВ", n - 1))
         sheet.row_dimensions[n + 1].height = h
 
         wb.save(file_path)
@@ -124,8 +122,25 @@ def createReportIsChanel(name, start, end):
 
 
 if __name__ == "__main__":
-    print("start Create Exel")
-    # createReportIsTimeAndName("Ткач", "2023-10-14", "2023-10-10")
-    # createReportIsTimeAndName("Сухоніс", "2023-10-14", "2023-10-05")
-    createReportIsChanel("Дніпро Оперативний - життя великого міста", "2023-10-14", "2023-09-01")
-    createReportIsTime("2023-10-14", "2023-09-01")
+    print(g.getNameDir())
+    print(g.getNameJurn())
+    print(g.getResurce())
+
+
+    # CreateExel.createReportIsChanel('Дніпро Оперативний - життя великого міста', d, period_to_now(30))
+    # CreateExel.createReportIsChanel('Наше Місто', d, period_to_now(30))
+    # CreateExel.createReportIsChanel('Дніпровська Панорама', d, period_to_now(30))
+
+    # с.createReportIsTimeAndName("Малихіна", d, period_to_now(30))
+    # с.createReportIsTimeAndName('Ткач', d, period_to_now(30))
+    # с.createReportIsTimeAndName('Глущенко', d, period_to_now(30))
+    # с.createReportIsTimeAndName('Сухоніс', d, period_to_now(30))
+    # с.createReportIsTimeAndName('Нікітін', d, period_to_now(30))
+
+    # с.createReportIsTimeAndName('Скрипніченко', d, period_to_now(30))
+    # с.createReportIsTimeAndName('Бездільний', d, period_to_now(30))
+    # с.createReportIsTimeAndName('Тарасов', d, period_to_now(30))
+    # с.createReportIsTimeAndName('Тейлор', d, period_to_now(30))
+    # с.createReportIsTimeAndName('Нікітін', d, period_to_now(30))
+
+    # с.createReportIsTime(d, period_to_now(30))

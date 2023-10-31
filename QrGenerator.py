@@ -25,7 +25,7 @@ def CreateQr(data, path = "./",name = "my_qr_code.png"):
 
 
 
-CreateQr("re","./QR/")
+CreateQr("https://www.facebook.com/profile.php?id=100011320001815","./QR/")
 
 if __name__ == "__main__":
     pass

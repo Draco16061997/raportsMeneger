@@ -16,7 +16,7 @@ DP = "UCK3Js2yhZYjxpdfYkMveoGg"
 
 
 
-db = sqlite3.connect("/Users/mikita/Main/PythonProjects/raportsMeneger/test.db")
+db = sqlite3.connect("/volume1/scripts/Youtube_raports/Youtube.db")
 c = db.cursor()
 def createTable():
     c.execute('''CREATE TABLE IF NOT EXISTS YoutubeVideo 
@@ -57,7 +57,7 @@ def getlist(chanelId):
         part="snippet",
         type="video",
         order="date",
-        maxResults='20'
+        maxResults='50'
     ).execute()
 
     dat = r['items'][0]['snippet']['publishedAt']
@@ -88,11 +88,10 @@ def getlist(chanelId):
     #     # print(title)
     #     # print(dataPublish)
     #     # print(url)
+
+
+
     return youYubeList
-
-
-
-    # return youYubeList
 
 # def get_video_info(video_id):
 #     r = get_service().videos().list(id=video_id, part='snippet').execute()
@@ -123,14 +122,12 @@ def writheBdYoutube(idChenal):
 
 # for i in getlist(DO):
 #     print(i)
-# print(getlist(DO))
+
 # createTable()
-# writheBdYoutube(DO)
-# writheBdYoutube(NM)
-# writheBdYoutube(DP)
+writheBdYoutube(DO)
+writheBdYoutube(NM)
+writheBdYoutube(DP)
 
 
 db.close()
 
-if __name__ == "__main__":
-    print("start")

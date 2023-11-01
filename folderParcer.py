@@ -1,7 +1,7 @@
 import os
 import sqlite3
 import users
-
+import time
 path = '/Users/mikita/Work/Продакшн/END/'
 # Nikita = '/volume2/NAS_1/Готовые_сюжети/Никита/'
 # Igor = '/volume2/NAS_1/Готовые_сюжети/Игорь/'
@@ -13,24 +13,27 @@ path = '/Users/mikita/Work/Продакшн/END/'
 db = sqlite3.connect("/Users/mikita/Main/PythonProjects/raportsMeneger/Youtube.db")
 c = db.cursor()
 
-l =[]
+# l =[]
 def WalkFiles(path):
-    # l = []
+    l = []
     for i in os.listdir(path):
         if os.path.isdir(path+'/'+i):
             WalkFiles(path+'/'+i)
-        else: l.append(i)
+        else: l.append(time.strftime("%Y-%m-%d", time.gmtime(os.path.getmtime(path+'/'+i)))+"_"+i)
     return l
 
 def getListFiles(path):
     l = []
     for i in WalkFiles(path):
         s = i.replace(".mp4","")
-        s = s.split('_', 4)
+        s = s.split('_', 6)
         t = len(s)
-        if t == 5:
+        if t >= 5:
             l.append(s)
     return l
+
+
+
 
 def createTable():
     c.execute('''CREATE TABLE IF NOT EXISTS VideoStorage
@@ -51,12 +54,12 @@ def writheBdList(path):
     for i in getListFiles(path):
     	
     	
-        nameDir = i[3]
-        nameJurn = i[2]
+        nameDir = i[4]
+        nameJurn = i[3]
         
-        typVideo = i[1]
+        typVideo = i[2]
 
-        key = i[4].replace(" ","")
+        key = i[5].replace(" ","")
         key = key.replace("@SynoEAStream","")
         key = key.replace("@SynoResource","")
 
@@ -87,13 +90,17 @@ def writheBdList(path):
         #     nameDir = "Фурдуй"
             
         if typVideo == "НМ" or typVideo == "ДО" or typVideo == "ДП":
-            typVideo = "СЮЖ"
+            typVideo = 1
 
 
         c.execute(f"SELECT key FROM VideoStorage WHERE key = '{key}'")
         if c.fetchone() is None:
-            c.execute(f"INSERT INTO VideoStorage VALUES (?, ?, ?, ?, ?)", (i[0], typVideo, nameJurn, nameDir, key))
+            c.execute(f"INSERT INTO VideoStorage VALUES (?, ?, ?, ?, ?, ?)", (i[1], typVideo, nameJurn, nameDir, key, i[0] ))
         db.commit()
+
+# ALTER TABLE VideoStorage
+# ADD dataRendera DATE
+
 
 writheBdList(path)
 # writheBdList(Nikita)

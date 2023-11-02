@@ -106,4 +106,4 @@ for i in paths.scan_path:
 
 db.close()
 if __name__ == '__main__':
-    print("folders Updates!!!")
+    print("folder Updates!!!")

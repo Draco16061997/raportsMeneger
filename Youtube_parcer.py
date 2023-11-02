@@ -137,4 +137,4 @@ for i in paths.Chanels:
 db.close()
 
 if __name__ =="__main__":
-    print("youtubes OK!")
+    print("youtube OK!")

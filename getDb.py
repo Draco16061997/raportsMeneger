@@ -90,4 +90,4 @@ for i in ExecuteResDB(True,1,'2023-10-24','2023-11-01'):
 #     print(i)
 
 if __name__ == '__main__':
-    None
+    print("run")

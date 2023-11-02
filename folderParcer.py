@@ -1,16 +1,13 @@
 import os
 import sqlite3
 import users
+import paths
 
-path = '/Users/mikita/Work/Продакшн/END/'
-# Nikita = '/volume2/NAS_1/Готовые_сюжети/Никита/'
-# Igor = '/volume2/NAS_1/Готовые_сюжети/Игорь/'
-# Jenya = '/volume2/NAS_1/Готовые_сюжети/Євген/'
-# Kostya = '/volume2/NAS_1/Готовые_сюжети/Костя/'
-# Taylor = '/volume2/NAS_1/Готовые_сюжети/Taylor'
+path = paths.scan_path
+
 
 # db = sqlite3.connect("/volume1/scripts/Youtube_raports/Youtube.db")
-db = sqlite3.connect("/Users/mikita/Main/PythonProjects/raportsMeneger/Youtube.db")
+db = sqlite3.connect(paths.pathDb)
 c = db.cursor()
 
 l = []
@@ -97,8 +94,10 @@ def writheBdList(path):
             c.execute(f"INSERT INTO VideoStorage VALUES (?, ?, ?, ?, ?)", (i[0], typVideo, nameJurn, nameDir, key))
         db.commit()
 
-
-writheBdList(path)
+for i in paths.scan_path:
+    writheBdList(i)
+    print(i + " ========== OK!")
+#
 # writheBdList(Nikita)
 # writheBdList(Igor)
 # writheBdList(Jenya)

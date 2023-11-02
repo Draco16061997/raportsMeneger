@@ -1,6 +1,7 @@
 import sqlite3
+import paths
 
-pathDb = "/Users/mikita/Main/PythonProjects/raportsMeneger/Youtube.db"
+pathDb = paths.pathDb
 
 def ExecuteJurnDB(isShorts, IDJurn, ot, do):
     db = sqlite3.connect(pathDb)
@@ -79,9 +80,9 @@ def ExecuteResDB(isShorts, res, ot, do):
     db.close()
     return rows
 
-#
-# for i in ExecuteResDB(True,0,'2023-10-24','2023-11-01'):
-#     print(i)
+# #
+for i in ExecuteResDB(True,1,'2023-10-24','2023-11-01'):
+    print(i)
 
 # for i in ExecuteDirDB(False,12,'2023-10-24','2023-11-01'):
 #     print(i)

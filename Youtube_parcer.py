@@ -3,20 +3,20 @@ from googleapiclient.discovery import build
 import google.oauth2
 import sqlite3
 import re
+import paths
 
-
-API_KEY = 'AIzaSyDz8jQ_MgsAURJot6bLQE2ByORjnzSLeGY'
-# API_KEY ="AIzaSyB2IfrmphlLNJpBs7z3S8vjM57-w2FjMaA"
-
-
-
-DO = "UC1h4sv6jq8vrKvtyNSqbpYQ"
-NM = "UCaU3czdSiC8YbC7VM0ebEtQ"
-DP = "UCK3Js2yhZYjxpdfYkMveoGg"
+API_KEY = paths.API_Youtube
 
 
 
-db = sqlite3.connect("/volume1/scripts/Youtube_raports/Youtube.db")
+#
+# DO = "UC1h4sv6jq8vrKvtyNSqbpYQ"
+# NM = "UCaU3czdSiC8YbC7VM0ebEtQ"
+# DP = "UCK3Js2yhZYjxpdfYkMveoGg"
+
+
+
+db = sqlite3.connect(paths.pathDb)
 c = db.cursor()
 def createTable():
     c.execute('''CREATE TABLE IF NOT EXISTS YoutubeVideo 
@@ -124,10 +124,17 @@ def writheBdYoutube(idChenal):
 #     print(i)
 
 # createTable()
-writheBdYoutube(DO)
-writheBdYoutube(NM)
-writheBdYoutube(DP)
+#
+for i in paths.Chanels:
+    writheBdYoutube(i)
+
+    print(i + "======= OK!")
+# writheBdYoutube(paths.Chanels[0])
+# writheBdYoutube(NM)
+# writheBdYoutube(DP)
 
 
 db.close()
 
+if __name__ =="__main__":
+    print("youtubes OK!")

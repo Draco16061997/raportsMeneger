@@ -5,13 +5,10 @@ import paths
 
 path = paths.scan_path
 
-
-# db = sqlite3.connect("/volume1/scripts/Youtube_raports/Youtube.db")
 db = sqlite3.connect(paths.pathDb)
 c = db.cursor()
 
 l = []
-
 
 def WalkFiles(path):
     # l = []
@@ -69,22 +66,6 @@ def writheBdList(path):
         if users.getIdType(typVideo) != None:
             typVideo = users.getIdType(typVideo)
 
-        # print(nameJurn)
-        # print(nameDir)
-        # print(i)
-
-        #
-        # if nameDir == "Скрипниченко" or nameDir == "cкрипниченко" or nameDir == "cкрипніченко":
-        #     nameDir = "Скрипніченко"
-        #
-        # if nameJurn == "Табацкая" or nameJurn == "Сухонис" or nameJurn == "сухоніс" or nameJurn == "сухонис" or nameJurn == "Табацька"or nameJurn == "Дарина":
-        #     nameJurn = "Сухоніс"
-        #
-        # if nameDir == "Ігор":
-        #     nameDir = "Бездільний"
-        #
-        # if nameDir == "Костя":
-        #     nameDir = "Фурдуй"
 
         if typVideo == "НМ" or typVideo == "ДО" or typVideo == "ДП":
             typVideo = "СЮЖ"
@@ -97,12 +78,7 @@ def writheBdList(path):
 for i in paths.scan_path:
     writheBdList(i)
     print(i + " ========== OK!")
-#
-# writheBdList(Nikita)
-# writheBdList(Igor)
-# writheBdList(Jenya)
-# writheBdList(Kostya)
-# writheBdList(Taylor)
+
 
 db.close()
 if __name__ == '__main__':

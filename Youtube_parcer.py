@@ -127,11 +127,8 @@ def writheBdYoutube(idChenal):
 #
 for i in paths.Chanels:
     writheBdYoutube(i)
-
     print(i + "======= OK!")
-# writheBdYoutube(paths.Chanels[0])
-# writheBdYoutube(NM)
-# writheBdYoutube(DP)
+
 
 
 db.close()

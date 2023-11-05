@@ -12,7 +12,7 @@ def ExecuteJurnDB(isShorts, IDJurn, ot, do):
     else:
         selecter = '<>'
 
-    c.execute(f'''SELECT YoutubeVideo.data, YoutubeVideo.name, typeVideo.name,YoutubeVideo.chanel, Jurn.name AS JurnName, Dir.name AS DirName, YoutubeVideo.url
+    c.execute(f'''SELECT YoutubeVideo.data, typeVideo.name, YoutubeVideo.name, YoutubeVideo.chanel, Jurn.name AS JurnName, Dir.name AS DirName, YoutubeVideo.url
             FROM YoutubeVideo
             LEFT JOIN VideoStorage ON VideoStorage.key = YoutubeVideo.key
             LEFT JOIN typeVideo ON typeVideo.id = VideoStorage.TypeClip
@@ -41,7 +41,7 @@ def ExecuteDirDB(isShorts, IDDir, ot, do):
     else:
         selecter = '<>'
 
-    c.execute(f'''SELECT YoutubeVideo.data, YoutubeVideo.name, typeVideo.name,YoutubeVideo.chanel, Jurn.name AS JurnName, Dir.name AS DirName, YoutubeVideo.url
+    c.execute(f'''SELECT YoutubeVideo.data, typeVideo.name, YoutubeVideo.name, YoutubeVideo.chanel, Jurn.name AS JurnName, Dir.name AS DirName, YoutubeVideo.url
             FROM YoutubeVideo
             LEFT JOIN VideoStorage ON VideoStorage.key = YoutubeVideo.key
             LEFT JOIN typeVideo ON typeVideo.id = VideoStorage.TypeClip
@@ -66,7 +66,7 @@ def ExecuteResDB(isShorts, res, ot, do):
     else:
         selecter = '<>'
 
-    c.execute(f'''SELECT YoutubeVideo.data, YoutubeVideo.name, typeVideo.name,YoutubeVideo.chanel, Jurn.name AS JurnName, Dir.name AS DirName, YoutubeVideo.url
+    c.execute(f'''SELECT YoutubeVideo.data, typeVideo.name, YoutubeVideo.name, YoutubeVideo.chanel, Jurn.name AS JurnName, Dir.name AS DirName, YoutubeVideo.url
             FROM YoutubeVideo
             LEFT JOIN VideoStorage ON VideoStorage.key = YoutubeVideo.key
             LEFT JOIN typeVideo ON typeVideo.id = VideoStorage.TypeClip
@@ -80,9 +80,33 @@ def ExecuteResDB(isShorts, res, ot, do):
     db.close()
     return rows
 
+def ExecuteDB(isShorts, ot, do):
+    db = sqlite3.connect(pathDb)
+    c = db.cursor()
+    list = ('Дніпро Оперативний - життя великого міста','Наше Місто','Дніпровська Панорама')
+
+    selecter = None
+    if isShorts:
+        selecter = '='
+    else:
+        selecter = '<>'
+
+    c.execute(f'''SELECT YoutubeVideo.data, typeVideo.name, YoutubeVideo.name, YoutubeVideo.chanel, Jurn.name AS JurnName, Dir.name AS DirName, YoutubeVideo.url
+            FROM YoutubeVideo
+            LEFT JOIN VideoStorage ON VideoStorage.key = YoutubeVideo.key
+            LEFT JOIN typeVideo ON typeVideo.id = VideoStorage.TypeClip
+            LEFT JOIN emploues AS Jurn ON Jurn.id = VideoStorage.NameJurn
+            LEFT JOIN emploues AS Dir ON Dir.id = VideoStorage.NameDirector
+            WHERE typeVideo.id {selecter} 2  AND YoutubeVideo.data BETWEEN '{ot}' AND '{do}'
+            ORDER BY YoutubeVideo.data DESC;
+                        ''')
+
+    rows = c.fetchall()
+    db.close()
+    return rows
+
 # #
-for i in ExecuteResDB(True,1,'2023-10-24','2023-11-01'):
-    print(i)
+
 
 # for i in ExecuteDirDB(False,12,'2023-10-24','2023-11-01'):
 #     print(i)
@@ -90,4 +114,6 @@ for i in ExecuteResDB(True,1,'2023-10-24','2023-11-01'):
 #     print(i)
 
 if __name__ == '__main__':
+    for i in ExecuteDB(True, '2023-10-24', '2023-11-01'):
+        print(i)
     print("run")
